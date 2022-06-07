@@ -21,13 +21,15 @@ Pytorch implementation of a video retrieval model on datasets UCF101 and HMDB-51
 
 In order to run this code you will need to install:
 
-1. Python3
-2. Pytorch 0.4
+1. Python 3.9
+2. Pytorch 1.11.0
 
 ### Usage
 
-1. Firstly download and unzip the two datasets.
-2. Use video2frames.py to turn each video into a set of frames.
-3. Generate two files train.txt and test.txt, each line of which is in the format of [video_name,classid].
-4. Change the datapath arguments  in train.py to indicate the file path.
-5. Run the command bellow. 
+1. Firstly download and unzip the two datasets of UCF101 and HMDB-51.
+2. Change the datapath arguments in train.py to indicate the file path.
+3. Run the function of train.py.
+4. Generate the video frames from the psth of data.
+5. Generate the three files of train.txt、test.txt and val.txt, each line of which is in the format of [video_frames_path, class_id].
+6. Setting the video frames to DataLoader, Create the model of C3D,resnet18,resnet34, create the triplet_loss and optimizer and scheduler.
+7. Start the training.
