@@ -1,0 +1,45 @@
+version: 1
+#是否覆盖掉已经存在的loggers
+disable_existing_loggers: True
+
+formatters:
+
+  tostrout:
+    format: "%(asctime)s - %(name)s - %(levelname)-9s - %(filename)-8s : %(lineno)s line - %(message)s"
+    datefmt: "%Y/%m/%d %H:%M:%S"
+
+  tofile:
+    format: "%(asctime)s - %(name)s - %(levelname)-9s - %(filename)-8s : %(lineno)s line - %(message)s"
+
+handlers:
+  sh:
+    class: logging.StreamHandler
+    level: WARNING
+    formatter: tostrout
+    stream: ext://sys.stdout
+
+  fh:
+    class: logging.handlers.TimedRotatingFileHandler
+    filename: logconfdd.log
+    interval: 1
+    backupCount: 2
+    when: D
+    level: INFO
+    formatter: tofile
+
+loggers:
+  logger1:
+    level: DEBUG
+    handlers: [sh]
+    #是否往上级Logger传递，如果为yes的话，root选择了两个logger，这里的日志也会在两个logger的配置中输出，会重复。所以选No,自己记录自己的日志。
+    propagate: no
+
+  logger2:
+    level: INFO
+    handlers: [fh]
+    propagate: no
+
+root:
+  level: DEBUG
+  handlers: [sh,fh]
+  propagate: no
